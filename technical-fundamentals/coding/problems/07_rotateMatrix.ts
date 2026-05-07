@@ -6,5 +6,17 @@
 type Matrix = number[][]
 
 export default function rotateMatrix (matrix: Matrix) {
+  for (let row = 0; row < matrix.length; row ++) {
+    for (let col = row + 1; col < matrix.length; col ++) {
+      let temp = matrix[row][col]
+      matrix[row][col] = matrix[col][row]
+      matrix[col][row] = temp
+    }
+  }
 
+  for (let i = 0; i < matrix.length; i ++) {
+    matrix[i].reverse()
+  }
+
+  return matrix
 }

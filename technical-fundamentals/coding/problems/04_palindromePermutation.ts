@@ -11,4 +11,13 @@
 
 export default function palindromePermutation (str: string): boolean {
 
+  const clean = str.toLowerCase().replaceAll(" ", "")
+  const hash: Map<String, number | undefined> = new Map()
+
+  for (let i = 0; i < clean.length; i ++) {
+    const char = clean[i]
+    hash.set(char, (hash.get(char) ?? 0) + 1)
+  }
+  
+  return Array.from(hash.values()).filter(v => v % 2 == 1).length <= 1
 }

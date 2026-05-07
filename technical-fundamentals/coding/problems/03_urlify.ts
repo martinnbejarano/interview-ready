@@ -5,5 +5,15 @@
 // and that you are given the "true" length of the string.
 
 export default function URLify (s1 : string): string {
+  let res = ""
 
+  for (let i = 0; i < s1.length; i ++){
+    if (s1[i] != " ") {
+      res += s1[i]
+    } else {
+      res += '%20'
+    }
+  }
+
+  return res
 }
