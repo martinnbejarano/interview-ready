@@ -20,4 +20,19 @@ export type Node<T> = {
 export default function deleteMiddleNode<T>(
   head: Node<T>,
   position: number,
-): Node<T> | undefined {}
+): Node<T> | undefined {
+  const list = new LinkedList(head)
+  
+  if (position < 1) {
+    return head
+  }
+
+  const newList = list.filter((_, index) => {
+    if (index == position) {
+      return false
+    }
+    return true
+  })
+
+  return newList.head
+}

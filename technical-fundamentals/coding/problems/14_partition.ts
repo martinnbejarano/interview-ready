@@ -22,4 +22,19 @@ export type Node<T> = {
 export default function partition<T>(
   head: Node<T> | undefined,
   x: T,
-): Node<T> | undefined {}
+): Node<T> | undefined {
+  const l1 = new LinkedList<T>()
+  const l2 = new LinkedList<T>()
+  const list = new LinkedList(head)
+
+  list.visit((node) => {
+    if (!node) { return }
+    if (node.value >= x) {
+      l2.push(node.value)
+    } else {
+      l1.push(node.value)
+    }
+  })
+
+  return l1.merge(l2).head
+}

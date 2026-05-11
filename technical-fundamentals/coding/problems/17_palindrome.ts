@@ -9,4 +9,21 @@ export type Node<T> = {
   next?: Node<T>;
 };
 
-export default function isPalindrome<T>(head: Node<T> | undefined): boolean {}
+export default function isPalindrome<T>(head: Node<T> | undefined): boolean {
+  let p = head
+  const stack = []
+  while (p) {
+    stack.push(p.value)
+    p = p.next
+  }
+
+  p = head
+  while (p) {
+    if (stack.pop() !== p.value) {
+      return false
+    }
+    p = p.next
+  }
+
+  return stack.length == 0
+}

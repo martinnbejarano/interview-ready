@@ -12,4 +12,20 @@ export type Node<T> = {
 export default function kthToLast<T>(
   head: Node<T>,
   k: number,
-): Node<T> | undefined {}
+): Node<T> | undefined {
+  const list = new LinkedList(head)
+  const len = list.getLength()
+  let nodeKth;
+
+  if (k > len) {
+    return undefined
+  }
+
+  list.visit((node, index) => {
+    if (index == len - k) {
+      nodeKth = node
+    }
+  })
+
+  return nodeKth
+}
