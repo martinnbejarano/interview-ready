@@ -14,28 +14,52 @@ export type AnimalType = "dog" | "cat";
 
 export class Animal {
   type: AnimalType;
-  constructor(type: AnimalType) {
+  order: number;
+
+  constructor(type: AnimalType, order: number) {
     this.type = type;
+    this.order = order;
   }
 }
 
 export default class AnimalShelter {
+  dogs: Animal[];
+  cats: Animal[];
+  order: number;
 
-    constructor() {
+  constructor() {
+    this.dogs = [];
+    this.cats = [];
+    this.order = 0;
+  }
+
+  enqueue(type: AnimalType): void {
+    const animal = new Animal(type, this.order);
+    this.order++;
+
+    if (type === "dog") {
+      this.dogs.push(animal);
+    } else {
+      this.cats.push(animal);
+    }
+  }
+
+  dequeueAny(): Animal | undefined {
+    if (this.dogs.length === 0) return this.dequeueCat();
+    if (this.cats.length === 0) return this.dequeueDog();
+
+    if (this.dogs[0].order < this.cats[0].order) {
+      return this.dequeueDog();
     }
 
-    enqueue(type: AnimalType): void {
+    return this.dequeueCat();
+  }
 
-    }
+  dequeueDog(): Animal | undefined {
+    return this.dogs.shift();
+  }
 
-    dequeueAny(): Animal | undefined {
-
-    }
-
-    dequeueDog(): Animal | undefined {
-    }
-
-    dequeueCat(): Animal | undefined {
-    }
+  dequeueCat(): Animal | undefined {
+    return this.cats.shift();
+  }
 }
-
