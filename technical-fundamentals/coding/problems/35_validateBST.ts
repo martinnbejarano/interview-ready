@@ -8,6 +8,20 @@ export type TreeNode<T> = {
   right?: TreeNode<T>;
 };
 
-export default function validateBST<T>(
-  node: TreeNode<T> | undefined,
-): boolean {}
+function dfs(
+  node: TreeNode<number> | undefined,
+  min: number,
+  max: number,
+): boolean {
+  if (node == null) return true;
+  if (node.value <= min || node.value >= max) return false;
+  return (
+    dfs(node.left, min, node.value) && dfs(node.right, node.value, max)
+  );
+}
+
+export default function validateBST(
+  node: TreeNode<number> | undefined,
+): boolean {
+  return dfs(node, -Infinity, Infinity);
+}
