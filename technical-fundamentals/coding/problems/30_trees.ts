@@ -7,7 +7,36 @@ export type TreeNode<T> = {
 };
 
 export class Tree<T> {
-  bfs(node: TreeNode<T> | undefined, visit: (node: TreeNode<T>) => void) {}
 
-  dfs(node: TreeNode<T> | undefined, visit: (node: TreeNode<T>) => void) {}
+  bfs(node: TreeNode<T> | undefined, visit: (node: TreeNode<T>) => void) {
+    if (!node) {
+      return
+    }
+
+    const queue = [node]
+    let p
+    while (p = queue.shift()) {
+      visit(p)
+      if (p.left) { 
+        queue.push(p.left)
+      }
+
+      if (p.right) {
+        queue.push(p.right)
+      }
+
+      
+    }
+
+  }
+
+  dfs(node: TreeNode<T> | undefined, visit: (node: TreeNode<T>) => void) {
+    if (!node) {
+      return
+    }
+
+    visit(node)
+    this.dfs(node.left, visit)
+    this.dfs(node.right, visit) 
+  }
 }

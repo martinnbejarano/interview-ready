@@ -8,7 +8,26 @@ export type GraphNode = {
   neighbors: GraphNode[];
 };
 
+function dfs(
+  start: GraphNode,
+  end: GraphNode,
+  visited: Set<GraphNode>,
+): boolean {
+  if (start === end) return true;
+  if (visited.has(start)) return false;
+
+  visited.add(start);
+
+  for (const neighbor of start.neighbors) {
+    if (dfs(neighbor, end, visited)) return true;
+  }
+
+  return false;
+}
+
 export default function hasRouteBetweenNodes(
   start: GraphNode,
   end: GraphNode,
-): boolean {}
+): boolean {
+  return dfs(start, end, new Set());
+}
